@@ -1,6 +1,0 @@
-src/*
-dist/*
-bower.json
-Gruntfile.js
-gulpfile.js
-package.json

@@ -9,7 +9,7 @@
     "financial"
   ],
   "authors": [
-    "Jogesh Muppala"
+    "Hans Tremmel"
   ],
   "license": "MIT",
   "homepage": "",
@@ -29,7 +29,8 @@
     "angular-resource": "^1.6.5",
     "angular-mocks": "^1.6.5",
     "eonasdan-bootstrap-datetimepicker": "^4.17.47",
-    "moment": "^2.21.0"
+    "moment": "^2.21.0",
+    "chart.js": "chartjs#^2.7.2"
   },
   "resolutions": {
     "angular": "1.6.10"
