@@ -1,8 +1,10 @@
 <?php
-	define("__HOST__", "localhost:49161");
+	define("__HOST__", "medici_mariadb_1:3306");
 	define("__USER__", "root");
-	define("__PASS__", "root");
-	define("__BASE__", "project");
+    define("__PASS__", "password");
+
+    // Database name
+	define("__BASE__", "medici");
 
 	class DB {
 		private $con = false;
@@ -11,9 +13,10 @@
 		public function __construct() {
 			$this->con = new mysqli(__HOST__, __USER__, __PASS__, __BASE__);
 			
-			if($this->con->connect_error) {
+			if ($this->con->connect_error) {
 				die("DB connection failed:" . $con->connect_error);
 			}
+            echo 'Successfully connected!';
 		}
 
 		public function qryPop() {
