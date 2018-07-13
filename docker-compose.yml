@@ -17,19 +17,18 @@ services:
             - "3306:3306"
     php:
         # Specify the directory context with the Dockerfile
-        build: server
+        build: 
+            context: ./server
+            dockerfile: Dockerfile
         # Mount the PHP server code into the /var/www/html Apache server directory on the Docker container
         volumes:
-            - ${PWD}/src/:/var/www/html
-        # Expose the port 8081 on the local machine for ease of use in testing
+           - ${PWD}/server/src/:/var/www/html
+        environment:
+            - "DB_PORT=3306"
+            - "DB_HOST=localhost"
+            - "DB_DATABASE=medici"
+            - "DB_USERNAME=root"
+            - "DB_PASSWORD=password"
+        # Expose the port 8000 on the local machine for ease of use in testing
         ports:
-            - "8081:80"
-    nginx:
-        # Nginx version (arbitrarily chosen)
-        image: nginx:1.15.0
-        # Mount the AngulaarJS client code (not fully tested yet)
-        volumes:
-            - ${PWD}/client/:/var/www/html
-        # Expose the port 8080 on the local machine
-        ports:
-            - "8080:80"
+            - "8000:8000"

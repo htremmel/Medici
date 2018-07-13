@@ -1,5 +1,9 @@
 bower_components/
+.idea/
 **/node_modules/
 dist/
 package-lock.json
 **/*.wiki
+**/.editorconfig
+server/src/vendor
+server/src/storage
