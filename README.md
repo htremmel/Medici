@@ -7,13 +7,13 @@ Docker compose is a tool that's used for defining and running multi-container Do
 
 For more documentation, refer to: https://docs.docker.com/compose/overview
 
-The docker-compose.yml file creates three separate services, so that it's easier to work on the separate components of this project: PHP (server-side), AngularJS (client-side, served in Nginx), and MariaDB.
+The docker-compose.yml file creates three separate services, so that it's easier to work on the separate components of this project: PHP (server-side), AngularJS, and MariaDB.
 
 In order to run all the current applications, simply run:
 
-```
-docker-compose up
-```
+1. ```docker-compose up```
+2. Navigate to the ${PROJECT_ROOT}/server/src directory and run: ```php artisan serve```
+3. Navigate to the ${PROJECT_ROOT}/client/src directory and run: ```http-server -o``` or however you want to serve it temporarily.
 
 If you'd like to run all the containers in the background, simply pass the "-d" flag to the docker-compose command, and then containers can be stopped by running `docker-compose down`
 
@@ -26,3 +26,4 @@ docker exec -it <Container ID prefix> /bin/bash
 ```
 
 The container ID can be fetched by running a 'docker ps'; Docker uses pattern matching, so you don't have to type the entire container ID! :)
+
