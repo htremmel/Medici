@@ -23,8 +23,6 @@ services:
         volumes:
             - ./server/src/:/var/www
         working_dir: /var/www
-        links:
-            - mariadb
         environment:
             DB_PORT: 3306
             DB_HOST: mariadb
@@ -35,3 +33,11 @@ services:
         ports:
             - "8000:8000"
         command: php artisan serve --host=0.0.0.0 --port=8000
+    web:
+        image: python:3
+        volumes:
+            - ./client/:/app
+        working_dir: /app/src
+        ports: 
+            - "8080:8080"
+        command: python3 -m http.server 8080
