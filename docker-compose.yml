@@ -15,21 +15,22 @@ services:
         # Ease of use (not strictly necessary, but allows for connecting to MySQL directly from host machine to localhost:3306
         ports:
             - "3306:3306"
-    php:
+    #php:
         # Specify the directory context with the Dockerfile
-        build: 
-            context: ./server
-            dockerfile: Dockerfile
-        # Mount the PHP server code into the /var/www/html Apache server directory on the Docker container
-        volumes:
-           - ./server/src/:/var/www/html/
-        working_dir: /var/www/html/
-        environment:
-            DB_PORT: 3306
-            DB_HOST: 127.0.0.1
-            DB_DATABASE: medici
-            DB_USERNAME: root
-            DB_PASSWORD: password
+        #build: 
+        #    context: ./server
+        #    dockerfile: Dockerfile
+        #volumes:
+        #   - ./server/src/:/var/www
+        #working_dir: /var/www
+        #depends_on:
+        #   - mariadb
+        #environment:
+        #    DB_PORT: 3306
+        #    DB_HOST: mariadb
+        #    DB_DATABASE: medici
+        #    DB_USERNAME: root
+        #    DB_PASSWORD: password
         # Expose the port 8000 on the local machine for ease of use in testing
         # ports:
         #    - "8000:8000"

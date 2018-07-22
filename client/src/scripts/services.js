@@ -1,14 +1,34 @@
 angular.module('angular')
-    .constant("baseURL", "http://localhost:3000/")
-    .service('transactions', ['$resource', '$resourceProvider', '$http', 'baseURL', function($resource, $resourceProvider, $http, baseURL) {
-        this.getTransactions = function() {
-            var Transactions = $resource('transactions/:transId', {
-                transId: '@tid'
+    .constant("baseURL", "http://localhost:8000/api/transactions/")
+    .service('Transactions', ['$http', 'baseURL', function ($http, baseURL) {
+        this.readTransactions = () => {
+            return $http.get(baseURL).then((response, err) => {
+                return response.data;
             });
-            return $resource(baseURL + "dishes/:id", null, {
-                'update': {
-                    method: 'PUT'
-                }
+        };
+
+        this.findTransaction = (id) => {
+            return $http.get(baseURL + id).then((response, err) => {
+                return response.data;
+            });
+        }
+
+        this.createTransaction = (transaction) => {
+            return $http.post(baseURL, JSON.stringify(transaction)).then((response, err) => {
+                return response.data;
+            });
+        };
+
+        this.updateTransaction = (transaction) => {
+            console.log("The transaction is ", transaction);
+            return $http.put(baseURL + transaction.id, JSON.stringify(transaction)).then((response, err) => {
+                return response.data;
+            });
+        };
+
+        this.deleteTransaction = (id) => {
+            return $http.delete(baseURL + id).then((response, err) => {
+                return response.data;
             });
         };
     }]);
