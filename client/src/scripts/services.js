@@ -20,7 +20,6 @@ angular.module('angular')
         };
 
         this.updateTransaction = (transaction) => {
-            console.log("The transaction is ", transaction);
             return $http.put(baseURL + transaction.id, JSON.stringify(transaction)).then((response, err) => {
                 return response.data;
             });
