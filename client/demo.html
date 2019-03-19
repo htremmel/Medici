@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        th,
+        td {
+            border: 1px solid black;
+            padding: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Read All</h3>
+    <button onclick="getTransactions()">Get All Transactions</button>
+    <table id="all-transactions">
+        <tr>
+            <th>ID</th>
+            <th>Amount</th>
+        </tr>
+    </table>
+
+    <br/>
+    <br/>
+
+    <h3>Create</h3>
+    <label for="create-amount">Amount:</label>
+    <input id="create-amount" type="text" name="create-amount" />
+    <button onclick="createTransaction()">Create Transaction</button>
+
+    <br/>
+    <br/>
+
+    <h3>Read</h3>
+    <label for="read-id">ID:</label>
+    <input id="read-id" type="text" name="read-id" />
+    <button onclick="readTransaction()">Find Amount</button>
+    <div>
+        The amount is
+        <span id="read-amount"></span>
+    </div>
+
+    <br/>
+    <br/>
+
+    <h3>Delete</h3>
+    <label for="delete-id">ID:</label>
+    <input id="delete-id" type="text" name="delete-id" />
+    <button onclick="deleteTransaction()">Delete By Id</button>
+
+    <script>
+        let table = document.getElementById("all-transactions");
+        let createAmount = document.getElementById("create-amount");
+        let readId = document.getElementById("read-id");
+        let deleteId = document.getElementById("delete-id");
+        let baseUrl = "http://127.0.0.1:8000/api/transactions";
+
+        // Read all transactions
+        function getTransactions() {
+            // Clear table
+            while (table.children.length > 1) {
+                table.removeChild(table.lastChild);
+            }
+
+            fetch(baseUrl)
+                .then(res => res.json())
+                .then(transactions => {
+                    for (let transaction of transactions) {
+                        let tr = document.createElement("tr");
+
+                        let id = document.createElement("td");
+                        id.innerText = transaction.id;
+                        tr.appendChild(id);
+
+                        let amt = document.createElement("td");
+                        amt.innerText = transaction.amount;
+                        tr.appendChild(amt);
+
+                        table.appendChild(tr);
+                    }
+                });
+        }
+
+        function createTransaction() {
+            let payload = {
+                "amount": createAmount.value
+            };
+
+            fetch(baseUrl, {
+                method: "POST",
+                body: JSON.stringify(payload),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(res => res.json())
+                .then(res => {
+                    console.log("For creating transaction ", res);
+                });
+        }
+
+        function readTransaction() {
+            fetch(`${baseUrl}/${readId.value}`)
+                .then(res => res.json())
+                .then(res => {
+                    document.getElementById("read-amount").innerText = res.amount;
+                });
+        }
+
+        function deleteTransaction() {
+            fetch(`${baseUrl}/${deleteId.value}`, {
+                method: "DELETE"
+            })
+                .then(res => res.json())
+                .then(res => {
+                    console.log("For deleting transaction ", res);
+                });
+        }
+    </script>
+</body>
+
+</html>

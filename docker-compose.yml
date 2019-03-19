@@ -1,0 +1,45 @@
+version: '3.4'
+services:
+    mariadb:
+        # MariaDB version to use
+        image: mariadb:10.3.7
+        # Environmental variables set for the image, easily changeable
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: medici
+            MYSQL_USER: user
+            MYSQL_PASSWORD: password
+        # Mount the SQL directory from the local host directory to Docker entrypoint, for automatic .sql file execution
+        volumes: 
+            - ./sql/:/docker-entrypoint-initdb.d
+        # Ease of use (not strictly necessary, but allows for connecting to MySQL directly from host machine to localhost:3306
+        ports:
+            - "3306:3306"
+    php:
+        # Specify the directory context with the Dockerfile
+        build: 
+            context: ./server
+            dockerfile: Dockerfile
+        volumes:
+            - ./server/src/:/var/www
+        working_dir: /var/www
+        environment:
+            DB_PORT: 3306
+            DB_HOST: mariadb
+            DB_DATABASE: medici
+            DB_USERNAME: root
+            DB_PASSWORD: password
+        # Expose the port 8000 on the local machine for ease of use in testing
+        ports:
+            - "8000:8000"
+        command: php artisan serve --host=0.0.0.0 --port=8000
+    web:
+        build:
+            context: ./client
+            dockerfile: Dockerfile
+        #volumes:
+        #    - ./client/:/app/
+        # working_dir: /app/
+        ports: 
+            - "3000:3000"
+        command: gulp watch

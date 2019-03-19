@@ -1,0 +1,154 @@
+<div class="container" ng-controller="TransactionsController" novalidate>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Transactions</h1>
+            <div>
+                <h3>Logged in as: </h3>
+                <h2>replace with angular.</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <div class="text-center">
+                <button class="btn btn-primary" ng-click="readTransactions()">Get All Transactions</button>
+            </div>
+            <table class="table" id="all-transactions">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Amount</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="transaction in transactions">
+                        <td>{{transaction.id}}</td>
+                        <td>{{transaction.amount}}</td>
+                        <td>{{transaction.description}}</td>
+                        <td>{{transaction.category}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-xs-12 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Create a New Transaction</div>
+                <div class="panel-body">
+
+                    <form class="form-group" name="transactionForm" ng-submit="createTransaction()">
+                        <!-- <div class="input-group date" id="timestamp">
+                            <input type="text" class="form-control" ng-model="transaction.timestamp" required/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div> -->
+                        <input type="text" class="form-control" name="transactionDesc" id="transactionDesc" placeholder="Transaction description"
+                            ng-model="transaction.description">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="amount" id="amount" placeholder="$0.00" ng-model="transaction.amount" required/>
+                            <input type="file" class="form-control-file" name="reciept" id="reciept" value="Attach reciept" alt="" ng-model="transaction.receipt"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="category" id="category" placeholder="Enter category." ng-model="transaction.category"
+                                required/>
+                            <!-- <select type="text" class="form-control" name="account" id="account" placeholder="Select account." ng-model="transaction.account"
+                                required>
+                            </select> -->
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="pull-right btn btn-primary" value="Submit" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Find a Transaction</div>
+                <div class="panel-body">
+                    <form class="form-group" name="transactionForm" ng-submit="findTransaction()">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="searchId" placeholder="ID" ng-model="searchId" required/>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="pull-right btn btn-primary" value="Submit" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Update a Transaction</div>
+                <div class="panel-body">
+                    <form class="form-group" name="transactionForm" ng-submit="updateTransaction()">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="ID" ng-model="uTransaction.id" />
+                            <input type="text" class="form-control" placeholder="Description" ng-model="uTransaction.description" />
+                            <input type="text" class="form-control" placeholder="Amount" ng-model="uTransaction.amount" />
+                            <input type="text" class="form-control" placeholder="Category" ng-model="uTransaction.category" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="pull-right btn btn-primary" value="Submit" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Delete a Transaction</div>
+                <div class="panel-body">
+                    <form class="form-group" name="transactionForm" ng-submit="deleteTransaction()">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="deleteId" placeholder="ID" ng-model="deleteId" required/>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="pull-right btn btn-primary" value="Submit" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="panel-title">Most Recent Transactions</div>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        <li class="list-group-item">How much?</li>
+                    </ul>
+                </div>
+                <div class="panel-footer">Money-In : Money-Out</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">When?</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Balance</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
